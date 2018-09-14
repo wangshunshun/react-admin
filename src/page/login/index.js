@@ -2,10 +2,22 @@ import React from 'react';
 import MUtil from '../../util/mm.js';
 import User from '../../service/user-service.js'
 import { Row,Col,Input,Button  } from 'antd';
+import img1 from '../../assets/images/slider.jpg'
+import img2 from '../../assets/images/slider2.jpg'
+import img3 from '../../assets/images/slider3.jpg'
 import './index.css'
 const _mm=new MUtil();
 const _user = new User();
+const imgArr=[img1,img2,img3];
+//随机数0-2
+let random=Math.floor(Math.random()*3);
+//把随机取到的图片赋值给class为row的元素
 
+const backgroundImg={
+    backgroundImage: `url(${imgArr[random]})`,
+    backgroundSize:"cover",
+    backgroundRepeat:'no-repeat'
+}
 class Login extends React.Component{
     constructor(props){
         super(props);
@@ -49,7 +61,7 @@ class Login extends React.Component{
     }
     render(){
         return(
-            <Row className="row">
+            <Row className="row" style={backgroundImg}>
                 <Col md={{span:8,offset:8}}>
                     <div className="panel">
                         <div className="panel-header">欢迎登录 - MMALL管理系统</div>

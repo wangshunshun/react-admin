@@ -2,12 +2,11 @@ import React from 'react';
 import { Button,Select,Row,Col,Input,Table,Pagination,Link} from 'antd';
 import Product from '../../../service/product-service.js'
 import MUtil from '../../../util/mm.js';
-
+//组件
 import PageTitle from '../../../component/page-title/index.js'
 import ListSearch from './search.js'
-import TableList from './list.js'
 import './index.css'
-
+const Option = Select.Option;
 const _mm=new MUtil();
 const _product=new Product();
 
@@ -19,14 +18,13 @@ class ProductList extends React.Component{
             pageNum:1,
             pageSize:10,
             total:0,
-            listType:'list'
+            listType:'list',
+
         }
     }
+    //第一次页面加载
     componentDidMount(){
-        setTimeout(()=>{
-            this.loadProductList();
-        })
-        
+        this.loadProductList();
     }
     // 加载商品列表
     loadProductList(){
@@ -34,6 +32,16 @@ class ProductList extends React.Component{
         listParam.listType = this.state.listType;
         listParam.pageNum  = this.state.pageNum;
         listParam.pageSize = this.state.pageSize;
+        // 如果是搜索的话，需要传入搜索类型和搜索关键字
+        // if(this.state.listType==='search'){
+        //     listParam.listType=this.state.listType;
+        //     const {selectChange} =this.state;
+        //     if(selectChange==="productId"){
+        //         listParam.productId = this.state.searchInfo
+        //     }else{
+        //         listParam.productName = this.state.searchInfo;
+        //     }
+        // }
         // 请求接口
         _product.getProductList(listParam).then(res=>{
             Object.values(res.list).map((item,index)=>{
@@ -45,6 +53,23 @@ class ProductList extends React.Component{
 
         })
     }
+    // // 改变select搜索条件
+    // handleChange(val){
+    //     this.setState({
+    //         selectChange:val
+    //     })
+    //     console.log(this.state.selectChange)
+    // }
+    // // 获取输入框的数据
+    // onChangeProductName (e){
+    //     this.setState({
+    //         searchInfo:e.target.value
+    //     })
+    // }
+    //点击查询
+    // onSerach(searchType, searchKeyword){
+    //     console.log(searchType, searchKeyword)
+    // }
     //改变每页显示数据
     onShowSizeChange(current, pageSize){
         this.setState({
@@ -139,9 +164,9 @@ class ProductList extends React.Component{
                         <Button type="primary" icon="plus" size="large">添加商品</Button>
                     </div>
                 </PageTitle>  
-                <ListSearch></ListSearch>
+                <ListSearch  />
                 <Table rowKey="id" pagination={false} dataSource={this.state.list} columns={columns} />
-                <Pagination style={{marginTop:20}} onChange={this.changePage.bind(this)} showSizeChanger onShowSizeChange={(current, pageSize) => this.onShowSizeChange(current, pageSize)} defaultCurrent={1} total={this.state.total} />,
+                <Pagination style={{marginTop:20}} onChange={this.changePage.bind(this)} showSizeChanger onShowSizeChange={(current, pageSize) => this.onShowSizeChange(current, pageSize)} defaultCurrent={this.state.pageNum} total={this.state.total} />,
             </div>  
         )
     }

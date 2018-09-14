@@ -5,7 +5,6 @@
 * @Last Modified time: 2018-01-23 22:26:09
 */
 import React from 'react';
-
 class PageTitle extends React.Component{
     constructor(props){
         super(props);
