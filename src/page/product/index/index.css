@@ -1,0 +1,14 @@
+.page-header-right{
+    position: absolute;
+    right: 15px;
+    top: 12px;
+}
+.ant-table-wrapper{
+    background: #fff;
+}
+.edit-data{
+    padding-right: 20px;
+}
+.edit-data,.delete-data{
+    float: left;
+}
