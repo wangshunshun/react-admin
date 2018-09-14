@@ -4,7 +4,7 @@ const {
 
 module.exports = function override(config, env) {
 	config = injectBabelPlugin(['import', {
-		libraryName: 'antd',
+		libraryName: "antd",
 		libraryDirectory: 'es',
 		style: 'css'
 	}], config);

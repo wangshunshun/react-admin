@@ -110,14 +110,17 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy" : {
-      "/manage" : {
-          "target": "http://admintest.happymmall.com",
-          "changeOrigin" : true
-      },
-      "/user/logout.do" : {
-          "target": "http://admintest.happymmall.com",
-          "changeOrigin" : true
-      }
+  "proxy": {
+    "/manage": {
+      "target": "http://admintest.happymmall.com",
+      "changeOrigin": true
+    },
+    "/user/logout.do": {
+      "target": "http://admintest.happymmall.com",
+      "changeOrigin": true
     }
+  },
+  "devDependencies": {
+    "element-ui": "^2.4.6"
+  }
 }

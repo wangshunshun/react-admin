@@ -17,6 +17,8 @@ class ProductList extends React.Component{
         this.state={
             list:[],
             pageNum:1,
+            pageSize:10,
+            total:0,
             listType:'list'
         }
     }
@@ -31,15 +33,34 @@ class ProductList extends React.Component{
         let listParam={}
         listParam.listType = this.state.listType;
         listParam.pageNum  = this.state.pageNum;
+        listParam.pageSize = this.state.pageSize;
         // 请求接口
         _product.getProductList(listParam).then(res=>{
+            Object.values(res.list).map((item,index)=>{
+                item.infos=item.name+','+item.subtitle
+            })
+            // set 结果集
             this.setState(res)
         },err=>{
 
         })
     }
+    //改变每页显示数据
     onShowSizeChange(current, pageSize){
-        console.log(current, pageSize);
+        this.setState({
+            pageSize:pageSize
+        },()=>{
+            this.loadProductList();
+        })
+    }
+    // 页数发生变化的时候
+    changePage(page,pageSize){
+        this.setState({
+            pageNum:page
+        },()=>{
+            this.loadProductList();
+        })
+        
     }
     editSource(){
         alert(1)
@@ -63,19 +84,26 @@ class ProductList extends React.Component{
             })
         }        
     }
+   
     render(){
         const columns = [{
             title: '商品ID',
             dataIndex: 'id',
-            key:'id'
           }, {
             title: '商品信息',
-            dataIndex: 'name',
-            key:'name'
+            dataIndex: 'infos',
+            render:(row)=>{
+                let info = row.split(',')
+                return(
+                    <div>
+                        <p>{info[0]}</p>
+                        <p>{info[1]}</p>
+                    </div> 
+                )
+            }
           }, {
             title: '价格',
             dataIndex: 'price',
-            key:'price',
             render:(record,row)=>{
                 return(
                     <div>￥{row.price}</div>   
@@ -84,7 +112,6 @@ class ProductList extends React.Component{
           },{
             title: '状态',
             dataIndex: 'status',
-            key:'status',
             render:(record,row)=>{
                 return(
                     <div>
@@ -114,7 +141,7 @@ class ProductList extends React.Component{
                 </PageTitle>  
                 <ListSearch></ListSearch>
                 <Table rowKey="id" pagination={false} dataSource={this.state.list} columns={columns} />
-                <Pagination style={{marginTop:20}} showSizeChanger onShowSizeChange={this.onShowSizeChange} defaultCurrent={1} total={this.state.total} />,
+                <Pagination style={{marginTop:20}} onChange={this.changePage.bind(this)} showSizeChanger onShowSizeChange={(current, pageSize) => this.onShowSizeChange(current, pageSize)} defaultCurrent={1} total={this.state.total} />,
             </div>  
         )
     }

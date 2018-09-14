@@ -7,7 +7,7 @@ class Product{
         let url     = '',
             data    = {};
         if(listParam.listType=='list'){
-            url                         = '/manage/product/list.do';
+            url                         = '/manage/product/list.do?'+new Date().getTime();
             data.pageNum                = listParam.pageNum;
         }else if(listParam.listType=='search'){
             url = '/manage/product/search.do';
