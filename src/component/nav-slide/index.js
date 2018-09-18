@@ -38,7 +38,7 @@ class NavSide extends React.Component{
 			        <Menu.Item key="setting:2">品类管理</Menu.Item>
 		        </SubMenu>
 		        <SubMenu key="sub2" title={<span><Icon type="setting" /><span>订单</span></span>}>
-		          	<Menu.Item key="setting:3">订单管理</Menu.Item>
+		          	<Menu.Item key="setting:3"><NavLink to="/order">订单管理</NavLink></Menu.Item>
 		        </SubMenu>
 		        <SubMenu key="sub3" title={<span><Icon type="setting" /><span>用户</span></span>}>
 		          	<Menu.Item key="setting:4">用户管理</Menu.Item>
